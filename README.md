@@ -1,23 +1,63 @@
 # DataScientest-MLOps-Test
-Test d'entretient MLOps pour Data Scientest
+Test d'entretient MLOps pour Data Scientest.
+
+# Structure du projet 
+
+DataScientest-MLOps-Test/
+├── api/
+│   ├── main.py         # Code de l'API FastAPI
+│   └── model.pkl       # Modèle entraîné
+├── notebooks/
+│   └── train.ipynb     # Notebook d'entraînement
+├── Dockerfile
+├── requirements.txt
+└── README.md
 
 
-# Mini-projet MLOps : API de classification Iris
+## Démarche du projet MLOps
 
-## Problème de ML résolu
-Ce projet résout un problème de classification des fleurs Iris en utilisant un modèle de Random Forest.
+Ce projet vise à transformer un modèle de Machine Learning en une API web facile à déployer et à utiliser. L'exemple choisi ici est la résolution d'un problème de classification des fleurs Iris en utilisant un modèle de Random Forest. Voici les étapes principales suivies pour rendre le modèle accessible :
+​
+### 1. Entraînement du modèle
 
-## Étapes clés
-1. Entraînement du modèle avec le dataset Iris.
-2. Sauvegarde du modèle avec `pickle`.
-3. Création d'une API FastAPI pour faire des prédictions.
-4. Conteneurisation de l'application avec Docker.
+Le modèle de classification (exemple : Random Forest sur le jeu de données Iris) est entraîné dans un notebook Python. Il apprend à prédire la classe d'une fleur à partir de ses caractéristiques.
 
-## Lancer l'application localement
-1. Cloner ce dépôt.
-2. Créer un environnement virtuel et installer les dépendances :
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
+### 2. Sauvegarde du modèle
 
+Après l'entraînement, le modèle est sauvegardé sous le nom model.pkl grâce à la bibliothèque pickle. Cela permet de le recharger facilement plus tard sans le réentraîner.
+
+### 3. Création de l’API FastAPI
+
+Une application web est développée avec FastAPI. Elle expose un endpoint /predict : ce point d'entrée accepte des données au format JSON, applique le modèle et renvoie la prédiction sous forme de réponse JSON.
+
+### 4. Conteneurisation avec Docker
+
+L'ensemble du projet (API, environnement Python, dépendances, modèle) est intégré dans un conteneur Docker via un fichier Dockerfile. Cela permet un lancement simple et reproductible sur n'importe quelle machine Docker-compatible.
+
+### 5. Documentation et exemples d’utilisation
+
+Le fichier README.md détaille : le problème traité, les grandes étapes du projet, les commandes pour démarrer et utiliser l’application, des exemples de requêtes pour tester l’API (comme avec curl) et les choix techniques réalisés.
+
+# Utilisation rapide 
+
+Construire l’image Docker :
+```bash
+docker build -t iris-fastapi-app .
+```
+
+Lancer le conteneur : 
+```bash
+docker run -d -p 8000:8000 iris-fastapi-app
+```
+
+Tester l'API : 
+```bash
+curl -X POST "http://localhost:8000/predict" \
+     -H "Content-Type: application/json" \
+     -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'
+```
+
+
+# Conclusion
+
+Ce projet illustre comment on passe d’un simple modèle d’entraînement à une API web déployable et utilisable partout dans le but de réexploiter les prédictions faites par un modèle en temps réel, dans une appli web par exemple.
