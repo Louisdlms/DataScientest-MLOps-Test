@@ -41,6 +41,8 @@ Le fichier README.md détaille : le problème traité, les grandes étapes du pr
 
 # Utilisation rapide 
 
+Cloner ce dépôt.
+
 Construire l’image Docker :
 ```bash
 docker build -t iris-fastapi-app .
