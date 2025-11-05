@@ -29,6 +29,6 @@ def predict(features: IrisFeatures):
         features.petal_length,
         features.petal_width
     ]]
-    pred_idx = model.predict(data)[0]
-    pred_name = class_names[pred_idx]
+    pred_idx = model.predict(data)[0] # index de la catégorie prédite (int)
+    pred_name = class_names[pred_idx] # Catégorie prédite (str)
     return {"prediction": pred_name}
