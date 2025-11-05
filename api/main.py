@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 import pickle
 from pydantic import BaseModel
+from sklearn.datasets import load_iris
+
+
+iris = load_iris()
+class_names = iris.target_names
 
 app = FastAPI()
 
@@ -24,5 +29,6 @@ def predict(features: IrisFeatures):
         features.petal_length,
         features.petal_width
     ]]
-    prediction = model.predict(data)
-    return {"prediction": int(prediction[0])}
+    pred_idx = model.predict(data)[0]
+    pred_name = class_names[pred_idx]
+    return {"prediction": pred_name}
