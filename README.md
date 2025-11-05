@@ -2,7 +2,7 @@
 Test d'entretient MLOps pour Data Scientest.
 
 # Structure du projet 
-
+```bash
 DataScientest-MLOps-Test/
 ├── api/
 │   ├── main.py         # Code de l'API FastAPI
@@ -12,6 +12,7 @@ DataScientest-MLOps-Test/
 ├── Dockerfile
 ├── requirements.txt
 └── README.md
+```
 
 
 ## Démarche du projet MLOps
